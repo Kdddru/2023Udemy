@@ -1,0 +1,49 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: cornflowerblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.board{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  perspective: 1000px;
+}
+
+.card{
+  width: 150px;
+  height: 200px;
+  position: relative;
+  border: 2px solid grey;
+  margin: 5px;
+  background-color: aliceblue;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+.card:active{
+  transform: rotateY(180deg);
+}
+
+img{
+  width: 100%;
+  height: 100%;
+}
+
+.front,
+.back{
+  position: absolute;
+  padding: 10px;
+  backface-visibility: hidden;
+}
+
+.front{
+  transform:rotateY(180deg);
+}
