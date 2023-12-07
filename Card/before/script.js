@@ -1,18 +1,35 @@
 const cards = document.querySelectorAll(".card");
 const orderList = [];
 
+let checkCards=[];
 
-let hasFlippedCard =false
+
+function flipCard(){
+  if(checkCards.length<2){
+    this.classList.add('filp');
+    checkCards.push(this);
+  }
+  checkCards.length === 2 && checkMatch() 
+}
+
+function checkMatch(){
+  const firstCard = checkCards[0].dataset.name;
+  const secondCard = checkCards[1].dataset.name;
+
+  const isMatch = firstCard === secondCard;
+  console.log(isMatch);
+}
+
+
+
+
 
 function pushOrderList(){
   cards.forEach((card, i)=>{
-    orderList.push(i)
+    orderList.push(i); 
   })
 }
 pushOrderList();
-
-console.log(cards);
-console.log(orderList);
 
 //OrderList 배열안 값 랜덤 섞기
 function suffleArr(arr){
@@ -23,7 +40,7 @@ function suffleArr(arr){
 }
 
 
-//style flex일경우 order 속성
+//style flex일경우 order 속성을 가지고 있음
 function suffle(){
   suffleArr(orderList);
   console.log(orderList);
@@ -31,5 +48,8 @@ function suffle(){
     card.style.order = orderList[i];
   })
 }
-
 suffle();
+
+
+cards.forEach((card)=>card.addEventListener('click',flipCard))
+
