@@ -22,7 +22,7 @@ body{
   width: 150px;
   height: 200px;
   position: relative;
-  border: 2px solid grey;
+  border: 1px solid grey;
   margin: 5px;
   background-color: aliceblue;
   transform-style: preserve-3d;
@@ -30,10 +30,10 @@ body{
 }
 
 .card:active{
-  transform: rotateY(180deg);
+  transition: transform 0.5s;
 }
 
-.card.filp{
+.card.flip{
   transform: rotateY(180deg);
 }
 
@@ -45,10 +45,13 @@ img{
 .front,
 .back{
   position: absolute;
-  padding: 10px;
   backface-visibility: hidden;
 }
 
 .front{
   transform:rotateY(180deg);
+}
+
+.back{
+  padding: 5px;
 }
