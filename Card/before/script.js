@@ -3,6 +3,18 @@ const orderList = [];
 
 let checkCards=[];
 
+//모든 카드에게 클릭이벤트 부여
+cards.forEach((card)=>card.addEventListener('click',flipCard));
+
+//카드 갯수 
+function pushOrderList(){
+  cards.forEach((card, i)=>{
+    orderList.push(i); 
+  })
+}
+pushOrderList();
+
+//선택된 카드 뒤집기
 function flipCard(){
   if(checkCards.length<2){
     this.classList.add('flip');
@@ -13,6 +25,7 @@ function flipCard(){
   checkCards.length === 2 && checkMatch() 
 }
 
+//선택된 2개의 카드 같은지 체크
 function checkMatch(){
   const firstCard = checkCards[0].dataset.name;
   const secondCard = checkCards[1].dataset.name;
@@ -21,11 +34,13 @@ function checkMatch(){
   isMatch ? disableCard() : resetCard();
 }
 
+//선택된 2개의 카드가 같으면 클릭이벤트 제거
 function disableCard(){
   checkCards.forEach((card)=>card.removeEventListener('click',flipCard));
   checkCards = [];
 }
 
+//선택된 2개의 카드가 틀릴경우 뒤집기 취소
 function resetCard(){
   setTimeout(()=>{
     checkCards.forEach((card)=>card.classList.remove('flip'));
@@ -33,14 +48,6 @@ function resetCard(){
   }, 1000);
   
 }
-
-
-function pushOrderList(){
-  cards.forEach((card, i)=>{
-    orderList.push(i); 
-  })
-}
-pushOrderList();
 
 //OrderList 배열안 값 랜덤 섞기
 function suffleArr(arr){
@@ -52,15 +59,12 @@ function suffleArr(arr){
 
 
 //style flex일경우 order 속성을 가지고 있음
+//카드섞기
 function suffle(){
   suffleArr(orderList);
-  console.log(orderList);
   cards.forEach((card, i)=>{
     card.style.order = orderList[i];
   })
 }
 suffle();
-
-
-cards.forEach((card)=>card.addEventListener('click',flipCard));
 
