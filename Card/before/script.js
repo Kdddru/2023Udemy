@@ -3,8 +3,17 @@ const orderList = [];
 
 let checkCards=[];
 
+//초기화 함수
+function init(){
+  addClickEventToCard();
+  pushOrderList();
+  suffle();
+}
+
 //모든 카드에게 클릭이벤트 부여
-cards.forEach((card)=>card.addEventListener('click',flipCard));
+function addClickEventToCard(){
+  cards.forEach((card)=>card.addEventListener('click',flipCard));
+}
 
 //카드 갯수 
 function pushOrderList(){
@@ -12,7 +21,6 @@ function pushOrderList(){
     orderList.push(i); 
   })
 }
-pushOrderList();
 
 //선택된 카드 뒤집기
 function flipCard(){
@@ -21,16 +29,15 @@ function flipCard(){
     checkCards.push(this);
     checkCards[0] === checkCards[1] && checkCards.shift();
   }
-  
-  checkCards.length === 2 && checkMatch() 
+  if(checkCards.length === 2){
+    checkMatch(); 
+  } 
 }
 
 //선택된 2개의 카드 같은지 체크
 function checkMatch(){
-  const firstCard = checkCards[0].dataset.name;
-  const secondCard = checkCards[1].dataset.name;
-
-  const isMatch = firstCard === secondCard;
+  const [firstCard, secondCard] = checkCards;
+  const isMatch = firstCard.dataset.name === secondCard.dataset.name;
   isMatch ? disableCard() : resetCard();
 }
 
@@ -44,12 +51,14 @@ function disableCard(){
 function resetCard(){
   setTimeout(()=>{
     checkCards.forEach((card)=>card.classList.remove('flip'));
-    checkCards = []
+    checkCards = [];
   }, 1000);
   
 }
 
 //OrderList 배열안 값 랜덤 섞기
+//비구조화 할당
+//fisher-Yates
 function suffleArr(arr){
   arr.forEach((card, i)=>{
     const randomIndex = Math.floor(Math.random()*arr.length);
@@ -66,5 +75,5 @@ function suffle(){
     card.style.order = orderList[i];
   })
 }
-suffle();
 
+init();
